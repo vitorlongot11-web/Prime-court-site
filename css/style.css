@@ -745,4 +745,12 @@ input,select,textarea{font-size:16px}
 #estrutura #iso .g>div:first-child{box-shadow:0 44px 70px rgba(15,44,55,.30)!important}
 body:has(#estrutura) .menu-btn{box-shadow:0 4px 14px rgba(15,44,55,.28)}
 body:has(#estrutura) .hd nav{background:rgba(15,44,55,.86)}
-@media(min-width:900px){#estrutura .stage{transform:translateX(clamp(0px,9vw,150px))}}
+
+/* ESTRUTURA no computador: a quadra ocupa toda a área à direita e se ajusta à altura da tela */
+@media(min-width:900px){
+  #estrutura .stick{max-width:1500px;grid-template-columns:minmax(300px,.7fr) 1.6fr;grid-template-rows:auto minmax(0,1fr);align-content:stretch;padding:96px var(--hpad,clamp(32px,4.2vw,72px)) 20px;gap:0 24px}
+  #estrutura .stm{height:clamp(220px,36vh,320px);align-self:center}
+  #estrutura .stage{height:100%;min-height:0;align-self:stretch;margin:0;transform:none}
+  #estrutura .stage>#iso{margin-top:2%}
+}
+@media(min-width:900px){#estrutura .stage>#iso{transition:transform .3s ease-out}}

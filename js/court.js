@@ -22,9 +22,19 @@
   const fx = () => {
     const vh = innerHeight, vw = innerWidth, r = sec.getBoundingClientRect();
     const p = clamp(-r.top / Math.max(1, r.height - vh), 0, 1);
-    const k = vw < 700 ? clamp(Math.min(vw * .5, vh * .3) / 240, .55, .9) : clamp(Math.min(vw * .24, vh * .42) / 240, .6, 1.05);
-    iso.style.transform = `rotateX(${58 - p * 8}deg) rotateZ(${-50 + p * 100}deg) scale(${k * (1 + p * .1)})`;
+    const stage = sec.querySelector('.stage');
     const i = Math.min(2, Math.floor(p * 3));
+    let k;
+    if (vw < 700) k = clamp(Math.min(vw * .5, vh * .3) / 240, .55, .9);
+    else {
+      // computador: a escala acompanha o giro e a cena atual, para a quadra nunca ser cortada
+      const th = (-50 + p * 100) * Math.PI / 180, rx = (58 - p * 8) * Math.PI / 180;
+      const w = i === 2 ? 272 : 240, l = i === 2 ? 317 : 480;
+      const bw = w * Math.abs(Math.cos(th)) + l * Math.abs(Math.sin(th));
+      const bh = (w * Math.abs(Math.sin(th)) + l * Math.abs(Math.cos(th))) * Math.cos(rx) + 130;
+      k = clamp(Math.min(stage.clientWidth * .92 / bw, stage.clientHeight * .88 / bh) / (1 + p * .1), .5, 1.7);
+    }
+    iso.style.transform = `rotateX(${58 - p * 8}deg) rotateZ(${-50 + p * 100}deg) scale(${k * (1 + p * .1)})`;
     if (i !== idx) setIdx(i);
   };
   setIdx(0); fx();
