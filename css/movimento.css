@@ -1,0 +1,72 @@
+/* ===== MOVIMENTO — carregado depois do style.css ===== */
+:root{--ease-out:cubic-bezier(.23,1,.32,1);--ease-io:cubic-bezier(.77,0,.175,1)}
+
+@keyframes mv-rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+@keyframes mv-drop{from{opacity:0;transform:translateY(-16px)}to{opacity:1;transform:none}}
+@keyframes mv-flt{50%{translate:0 -7px}}
+@keyframes mv-word{from{opacity:0;transform:translateY(.45em);filter:blur(5px)}to{opacity:1;transform:none;filter:none}}
+@keyframes mv-zoom{from{scale:1.1}to{scale:1}}
+@keyframes mv-pop{from{opacity:0;transform:scale(.96) translateY(8px)}to{opacity:1;transform:none}}
+@keyframes mv-fade{from{opacity:0}to{opacity:1}}
+@keyframes mv-show{to{opacity:1}}
+
+/* ---- entrada ao rolar: os filhos entram em sequência (só animação, não mexe no hover) ---- */
+body.mv-3 .rv{opacity:1;transform:none;transition:none}
+body.mv-3 .rv>*{opacity:0}
+body.mv-3 .rv.in>*{opacity:1;animation:mv-drop .45s var(--ease-out) backwards;animation-delay:calc(var(--i,0) * 40ms)}
+body.mv-3 .rv>:nth-child(2){--i:1}body.mv-3 .rv>:nth-child(3){--i:2}body.mv-3 .rv>:nth-child(4){--i:3}
+body.mv-3 .rv>:nth-child(5){--i:4}body.mv-3 .rv>:nth-child(6){--i:5}
+
+/* ---- topo: uma única entrada; o título aparece só depois de dividido em palavras ---- */
+body.mv-3 .hero .txt{animation:none}
+body.mv-3 .hero .badge,body.mv-3 .hero .txt>p,body.mv-3 .hero .cta,body.mv-3 .hero .quick{animation:mv-rise .5s var(--ease-out) backwards}
+body.mv-3 .hero .txt>p{animation-delay:.2s}
+body.mv-3 .hero .cta{animation-delay:.28s}
+body.mv-3 .hero .quick{animation-delay:.36s}
+body.mv-3 .hero h1:not(.sp){opacity:0;animation:mv-show 0s 1.2s forwards} /* plano B se o script falhar */
+body.mv-3 .hero h1 .w{display:inline-block;animation:mv-word .4s var(--ease-out) backwards}
+body.mv-3 .hero picture{display:block;will-change:translate}
+body.mv-3 .hero picture img{animation:mv-zoom 12s var(--ease-out) both}
+
+/* ---- cartaz do torneio: o de fora flutua, o de dentro inclina com o mouse ---- */
+body.mv-3 .news-poster{animation:mv-flt 5s ease-in-out infinite}
+body.mv-3 .np-in{transform:perspective(800px) rotateY(var(--ry,0deg)) rotateX(var(--rx,0deg));transition:transform .2s var(--ease-out)}
+body.mv-3 .news-sec .news{animation:mv-fade .4s var(--ease-out)}
+
+/* ---- toque e mouse ---- */
+.btn:active{transform:scale(.97)}
+.bar a,.bar button{transition:transform .15s var(--ease-out),color .2s var(--ease-out)}
+.bar a:active,.bar button:active{transform:scale(.92)}
+@media(hover:hover) and (pointer:fine){
+  .btn:hover{box-shadow:0 8px 22px rgba(212,236,58,.35)}
+  .plan,.it{transition:transform .25s var(--ease-out),box-shadow .25s var(--ease-out)}
+  .plan:hover,.it:hover{transform:translateY(-4px);box-shadow:0 14px 34px rgba(15,44,55,.16)}
+  .quick a:hover,.card:hover{transform:translateY(-4px)}
+  .quick a{transition-property:background-color,border-color,color,transform}
+}
+
+/* ---- pop-up, menu, perguntas e troca de páginas ---- */
+.pop-box{animation:mv-pop .24s var(--ease-out)}
+.pop-ov.out{opacity:0;transition:opacity .16s var(--ease-out)}
+.pop-ov.out .pop-box{transform:scale(.97);transition:transform .16s var(--ease-out)}
+.ov.open nav a{animation:mv-rise .45s var(--ease-out) backwards}
+.ov.open nav a:nth-child(2){animation-delay:.04s}.ov.open nav a:nth-child(3){animation-delay:.08s}
+.ov.open nav a:nth-child(4){animation-delay:.12s}.ov.open nav a:nth-child(5){animation-delay:.16s}
+.ov.open nav a:nth-child(6){animation-delay:.2s}.ov.open nav a:nth-child(7){animation-delay:.24s}
+details[open]>p{animation:mv-rise .35s var(--ease-out)}
+@view-transition{navigation:auto}
+::view-transition-old(root),::view-transition-new(root){animation-duration:.22s}
+.hd{view-transition-name:hd}.bar{view-transition-name:bar}
+
+/* ---- quem pede menos movimento: só fades curtos ---- */
+@media(prefers-reduced-motion:reduce){
+  body.mv-3 .rv>*{opacity:1}
+  body.mv-3 .rv.in>*,.pop-box,.ov.open nav a,details[open]>p,body.mv-3 .hero .badge,body.mv-3 .hero .txt>p,body.mv-3 .hero .cta,body.mv-3 .hero .quick{animation:mv-fade .25s both}
+  body.mv-3 .hero picture img,body.mv-3 .news-poster,body.mv-3 .hero h1 .w{animation:none}
+  body.mv-3 .hero h1:not(.sp){opacity:1;animation:none}
+  body.mv-3 .np-in{transform:none}
+  @view-transition{navigation:none}
+}
+
+/* celular/toque: cartaz parado */
+@media(max-width:820px),(hover:none){body.mv-3 .news-poster{animation:none!important;transform:none!important}body.mv-3 .np-in{transform:none!important}}
