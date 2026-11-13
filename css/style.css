@@ -636,3 +636,16 @@ input,select,textarea{font-size:16px}
   .hero .txt{margin-top:min(30svh,230px)}
 }
 @media(max-width:380px){.ev .tg{white-space:normal;max-width:100%;letter-spacing:.04em;text-align:center}}
+
+/* ===== HERO DESKTOP: mais larga, título menor, bola visível ===== */
+@media(min-width:821px){
+  .hero{padding:12px clamp(12px,1.5vw,24px)}
+  .hero .box{max-width:1480px;height:min(84svh,760px);min-height:600px}
+  .hero img{transform:none;object-position:center 40%}
+  .hero .shade{background:
+    linear-gradient(90deg,rgba(15,44,55,.9) 0,rgba(15,44,55,.62) 34%,rgba(15,44,55,0) 62%),
+    linear-gradient(180deg,rgba(15,44,55,.5) 0,rgba(15,44,55,0) 18%,rgba(15,44,55,0) 62%,rgba(15,44,55,.88) 100%)}
+  .hero h1{font-size:clamp(34px,4.4vw,60px);max-width:640px;line-height:1.04}
+  .hero .txt{gap:16px;padding-inline:clamp(28px,5vw,72px)}
+  .hero .badge{margin-bottom:2px}
+}
