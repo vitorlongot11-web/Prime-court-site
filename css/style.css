@@ -722,3 +722,12 @@ input,select,textarea{font-size:16px}
   .hero .txt{padding-bottom:36px}
   .news-sec{padding-top:28px!important}
 }
+
+/* desktop: menu em cápsula de vidro discreta, letras mais nítidas */
+@media(min-width:821px){
+  .hd nav{padding:6px 10px;gap:2px;border-radius:999px;background:rgba(15,44,55,.42);-webkit-backdrop-filter:blur(14px) saturate(1.2);backdrop-filter:blur(14px) saturate(1.2);border:1px solid rgba(244,241,232,.16);box-shadow:0 6px 20px rgba(8,24,30,.22)}
+  .hd nav a{opacity:1;color:#fff;padding:8px clamp(10px,1.2vw,16px);border-bottom:0;border-radius:999px;text-shadow:0 1px 8px rgba(8,24,30,.55);transition:background-color .2s var(--ease-out),color .2s var(--ease-out)}
+  .hd nav a:hover{background:rgba(244,241,232,.12);color:#fff}
+  .hd nav a.on{background:rgba(212,236,58,.16);color:var(--lime)}
+  body:has(.hero) .hd nav{gap:2px;font-size:clamp(14px,1.15vw,16px)}
+}
