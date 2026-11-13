@@ -649,3 +649,14 @@ input,select,textarea{font-size:16px}
   .hero .txt{gap:16px;padding-inline:clamp(28px,5vw,72px)}
   .hero .badge{margin-bottom:2px}
 }
+
+/* hero de ponta a ponta (sem bordas claras em volta) — desktop e celular */
+.hero{padding:0}
+.hero .box{max-width:none;width:100%;border-radius:0;margin:0}
+.hero .txt{max-width:1480px;margin-inline:auto;left:0;right:0}
+@media(min-width:821px){
+  .hero{padding:0}
+  .hero .box{max-width:none;height:min(88svh,800px);min-height:620px}
+  .hero .txt{padding-top:96px}
+}
+.hero .txt{max-width:1224px;padding-inline:var(--pad)}
