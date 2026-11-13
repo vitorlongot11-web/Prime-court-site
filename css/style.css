@@ -708,3 +708,10 @@ input,select,textarea{font-size:16px}
   .hero picture{height:min(54svh,380px)}
   .hero .txt{margin-top:min(30svh,230px)}
 }
+
+/* mobile: a foto começa no topo da tela (céu da própria imagem, sem faixa azul) */
+@media(max-width:820px){
+  .hero picture{top:0;height:min(62svh,540px);-webkit-mask-image:none;mask-image:none}
+  .hero picture img{object-position:center 0%}
+  .hero .shade{background:linear-gradient(180deg,rgba(15,44,55,.38) 0,rgba(15,44,55,0) 16%,rgba(15,44,55,0) min(34svh,300px),rgba(15,44,55,.9) min(54svh,460px),var(--deep) min(62svh,540px),var(--deep) 100%)}
+}
