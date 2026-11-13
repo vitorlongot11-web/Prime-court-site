@@ -731,3 +731,18 @@ input,select,textarea{font-size:16px}
   .hd nav a.on{background:rgba(212,236,58,.16);color:var(--lime)}
   body:has(.hero) .hd nav{gap:2px;font-size:clamp(14px,1.15vw,16px)}
 }
+
+/* ===== ESTRUTURA: paleta clara (bege + azul-petróleo + limão), igual ao restante da página inicial ===== */
+#estrutura{background:#ebe6d6;color:var(--ink)}
+#estrutura .top{border-bottom-color:rgba(18,52,65,.16)}
+#estrutura .top h2{color:var(--ink)}
+#estrutura .top h2 .lime,#estrutura .stm h2 .lime{color:var(--blue)}
+#estrutura .step{color:var(--muted)}
+#estrutura .prog{background:rgba(18,52,65,.14)}
+#estrutura .prog i{background:var(--teal)}
+#estrutura .stm h2{color:var(--ink)}
+#estrutura .stm p{color:var(--muted)}
+#estrutura #iso .g>div:first-child{box-shadow:0 44px 70px rgba(15,44,55,.30)!important}
+body:has(#estrutura) .menu-btn{box-shadow:0 4px 14px rgba(15,44,55,.28)}
+body:has(#estrutura) .hd nav{background:rgba(15,44,55,.86)}
+@media(min-width:900px){#estrutura .stage{transform:translateX(clamp(0px,9vw,150px))}}
