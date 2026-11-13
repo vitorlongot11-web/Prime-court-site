@@ -754,3 +754,12 @@ body:has(#estrutura) .hd nav{background:rgba(15,44,55,.86)}
   #estrutura .stage>#iso{margin-top:2%}
 }
 @media(min-width:900px){#estrutura .stage>#iso{transition:transform .3s ease-out}}
+
+/* ===== sem o desenho de quadra no fundo: fundos lisos; títulos das páginas com o mesmo degradê do rodapé ===== */
+body.fx-3{background-image:none}
+body.fx-3 .band,body.fx-3.fx-1 .band{background-image:none}
+body.fx-3 .ph-hero{background-image:radial-gradient(circle at 6% 0%,rgba(212,236,58,.2),transparent 38%),radial-gradient(circle at 96% 100%,rgba(47,114,141,.75),transparent 50%),radial-gradient(circle at 62% 0%,rgba(46,138,120,.4),transparent 42%);background-repeat:no-repeat;background-size:auto;background-position:0 0}
+
+/* ===== FUNDO: papel (textura sutil sobre bege liso) ===== */
+body.fx-2::after{opacity:1;mix-blend-mode:multiply}
+body.fx-3{background-color:#f1ecde}
