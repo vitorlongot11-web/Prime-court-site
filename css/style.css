@@ -660,3 +660,26 @@ input,select,textarea{font-size:16px}
   .hero .txt{padding-top:96px}
 }
 .hero .txt{max-width:1224px;padding-inline:var(--pad)}
+
+/* ===== DESKTOP: página inicial com container mais largo, logo e fontes maiores ===== */
+@media(min-width:821px){
+  body:has(.hero){--hpad:clamp(32px,4.2vw,72px)}
+  body:has(.hero) .hd .in{max-width:1560px;padding:22px var(--hpad) 12px;gap:14px}
+  body:has(.hero) .hd .logo{width:76px;height:76px;padding:10px;border-radius:20px}
+  body:has(.hero) .hd nav{gap:clamp(20px,2.2vw,34px);font-size:clamp(14px,1.15vw,16px)}
+  body:has(.hero) .hd .btn{height:48px;padding:0 22px;font-size:13px;margin-left:clamp(18px,2vw,32px)}
+  .hero .txt{max-width:1560px;padding-inline:var(--hpad,clamp(32px,4.2vw,72px));gap:20px;padding-bottom:clamp(32px,4vw,56px)}
+  .hero .badge{height:36px;padding:0 18px;font-size:14px}
+  .hero h1{font-size:clamp(40px,4.7vw,68px);max-width:820px}
+  .hero p{font-size:clamp(17px,1.5vw,21px);max-width:600px}
+  .hero .cta .btn{height:60px;font-size:15px}
+  .btn.big{max-width:400px}
+  .quick a{font-size:15px;padding:16px 18px}
+}
+
+/* ===== PRÓXIMO TORNEIO: respiro em relação à hero e fundo em degradê (verde/azul) de ponta a ponta ===== */
+.news-sec{position:relative;isolation:isolate;padding-block:clamp(40px,6vw,88px)!important}
+.news-sec::before{content:"";position:absolute;z-index:-1;top:0;bottom:0;left:50%;width:100vw;transform:translateX(-50%);
+  background:radial-gradient(circle at 10% 15%,rgba(212,236,58,.30),transparent 38%),radial-gradient(circle at 92% 90%,rgba(47,114,141,.85),transparent 50%),radial-gradient(circle at 60% 5%,rgba(46,138,120,.5),transparent 42%),var(--deep)}
+.news-sec .news{border:1px solid rgba(244,241,232,.16);box-shadow:0 24px 60px rgba(8,24,30,.35)}
+@media(min-width:821px){.news-sec.wrap{padding-inline:var(--pad)}}
