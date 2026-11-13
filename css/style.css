@@ -683,3 +683,10 @@ input,select,textarea{font-size:16px}
   background:radial-gradient(circle at 10% 15%,rgba(212,236,58,.30),transparent 38%),radial-gradient(circle at 92% 90%,rgba(47,114,141,.85),transparent 50%),radial-gradient(circle at 60% 5%,rgba(46,138,120,.5),transparent 42%),var(--deep)}
 .news-sec .news{border:1px solid rgba(244,241,232,.16);box-shadow:0 24px 60px rgba(8,24,30,.35)}
 @media(min-width:821px){.news-sec.wrap{padding-inline:var(--pad)}}
+
+/* desktop: texto nunca sobe para baixo da logo (a hero cresce se a tela for baixa) */
+@media(min-width:821px){
+  body:has(.hero) .hd .logo{width:64px;height:64px;padding:9px;border-radius:18px}
+  .hero .box{height:auto;min-height:min(88svh,800px);display:flex;flex-direction:column;justify-content:flex-end}
+  .hero .txt{position:relative;inset:auto;width:100%;padding-top:128px}
+}
