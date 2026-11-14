@@ -55,9 +55,53 @@ if (tabs) {
 const evBox = document.getElementById('events');
 if (evBox) aoCarregarTorneios(() => {
   const prox = tProximo();
-  evBox.innerHTML = TORNEIOS.map(t => {
-    const st = tStatus(t), a = dt(t.inicio), isNext = prox && prox.id === t.id;
-    return `<a class="it${st.k === 'realizado' ? ' past' : ''}${isNext ? ' next' : ''}" href="torneio.html?id=${t.id}"><div class="d"><b>${tDatas(t).split(' ')[0]}</b><span>${MESES[a.getMonth()]}</span></div><div><h3>${t.nome}</h3><p>${t.resumo}</p></div><span class="tg ${st.k}">${isNext ? 'Próximo · ' : ''}${st.label}</span></a>`;
+  // calendário: um "folhinha" por mês, com os dias dos torneios marcados e a lista logo abaixo
+  const ord = TORNEIOS.slice().sort((a, b) => a.inicio.localeCompare(b.inicio));
+  const iso = (y, m, d) => y + '-' + String(m + 1).padStart(2, '0') + '-' + String(d).padStart(2, '0');
+  const hoje = iso(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
+  // sempre mostra o mês atual + os 3 seguintes (mesmo vazios); meses mais à frente só entram se tiverem torneio
+  const meses = [], agora = new Date();
+  const add = (y, m) => { const k = y + '-' + m; if (!meses.find(x => x.k === k)) meses.push({ k, y, m }); };
+  for (let i = 0; i < 4; i++) { const d = new Date(agora.getFullYear(), agora.getMonth() + i, 1); add(d.getFullYear(), d.getMonth()); }
+  ord.filter(t => !tRealizado(t)).forEach(t => {
+    for (let d = dt(t.inicio), f = dt(t.fim); d <= f; d.setDate(d.getDate() + 1)) {
+      if (d >= new Date(agora.getFullYear(), agora.getMonth(), 1)) add(d.getFullYear(), d.getMonth());
+    }
+  });
+  meses.sort((a, b) => a.y - b.y || a.m - b.m);
+  const rank = { next: 3, up: 2, past: 1 };
+  const tipo = t => tRealizado(t) ? 'past' : (prox && prox.id === t.id ? 'next' : 'up');
+  // cada torneio tem a sua cor, igual no dia do calendário e no cartão (c = fundo, t = texto)
+  const PALETA = [
+    { c: '#ff9f1c', t: '#1b1200' }, // laranja
+    { c: '#e5383b', t: '#ffffff' }, // vermelho
+    { c: '#ff6fae', t: '#2a0a1a' }, // rosa
+    { c: '#d4ec3a', t: '#123441' }, // lima
+    { c: '#8f6bff', t: '#ffffff' }, // roxo
+    { c: '#3fc8e8', t: '#062a33' }, // azul-claro
+  ];
+  const CORES = { 'torneio-juridico': 0, 'finals-ranking-prime': 1, 'ftms-finals': 2, 'dourados-cup': 3, 'dourados-future': 4 };
+  const cor = t => { const p = PALETA[(t.id in CORES ? CORES[t.id] : ord.findIndex(x => x.id === t.id) + 5) % PALETA.length]; return `--c:${p.c};--ct:${p.t}`; };
+  evBox.innerHTML = meses.map(({ y, m }) => {
+    const pref = y + '-' + String(m + 1).padStart(2, '0');
+    const doMes = ord.filter(t => t.inicio.slice(0, 7) <= pref && t.fim.slice(0, 7) >= pref);
+    const dias = new Date(y, m + 1, 0).getDate(), lead = new Date(y, m, 1).getDay();
+    let cel = '<i class="e"></i>'.repeat(lead);
+    for (let d = 1; d <= dias; d++) {
+      const s = iso(y, m, d), ts = doMes.filter(t => t.inicio <= s && t.fim >= s);
+      const cls = 'dia' + (s === hoje ? ' hoje' : '');
+      if (!ts.length) { cel += `<span class="${cls}">${d}</span>`; continue; }
+      const t = ts.sort((a, b) => rank[tipo(b)] - rank[tipo(a)])[0];
+      const pos = (s === t.inicio ? ' ini' : '') + (s === t.fim ? ' fim' : '');
+      cel += `<a class="${cls} ev-${tipo(t)}${pos}" style="${cor(t)}" href="torneio.html?id=${t.id}" title="${t.nome}">${d}</a>`;
+    }
+    const lista = doMes.map(t => {
+      const st = tStatus(t), ty = tipo(t);
+      return `<a class="ci ev-${ty}" style="${cor(t)}" href="torneio.html?id=${t.id}"><div class="cd"><b>${tDatas(t).split(' ')[0]}</b><span>${MESES[dt(t.inicio).getMonth()]}</span></div><div class="cn"><h3>${t.nome}</h3><p>${t.resumo}</p></div><span class="tg ${st.k}">${ty === 'next' ? 'Próximo · ' : ''}${st.label}</span></a>`;
+    }).join('');
+    return `<article class="mes"><header><h2>${MESES_FULL[m]}</h2><span>${y}</span></header>
+      <div class="gr"><b>D</b><b>S</b><b>T</b><b>Q</b><b>Q</b><b>S</b><b>S</b>${cel}</div>
+      <div class="ls">${lista || '<p class="vazio">Datas dos torneios em breve.</p>'}</div></article>`;
   }).join('');
 });
 
