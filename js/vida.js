@@ -35,7 +35,7 @@
   if (RM) return;
 
   // --- contagem das estatísticas
-  const stats = [...document.querySelectorAll('.stats b')];
+  const stats = [...document.querySelectorAll('.stats b, .res-card .num')];
   if (stats.length) {
     const io = new IntersectionObserver(es => es.forEach(e => {
       if (!e.isIntersecting) return;
