@@ -851,3 +851,11 @@ body.pg-torneios .news-sec{padding-top:6px!important}
 /* etiqueta de status sempre em uma linha só */
 .mes .tg{white-space:nowrap}
 @media(max-width:560px){.mes .cf .tg{font-size:9px;letter-spacing:.04em;padding:4px 8px}}
+
+/* celular: todos os cards com a mesma estrutura — etiqueta sob a descrição e "Saiba mais" no rodapé, à direita */
+@media(max-width:560px){
+  .mes .ci{row-gap:10px}
+  .mes .ci .cf{display:contents}
+  .mes .ci .cf .tg{grid-column:2;justify-self:start}
+  .mes .ci[style] .cf .mais{grid-column:1/-1;justify-self:end;margin-left:0}
+}
