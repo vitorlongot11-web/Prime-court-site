@@ -881,3 +881,42 @@ body.pg-torneios .duvida label{color:var(--cream)}
 .hd nav .nav-menu svg{display:block}
 .hd nav .nav-menu:hover{background:var(--lime);color:var(--ink);border-color:var(--lime);text-shadow:none}
 .hd nav{align-items:center}
+
+/* ===== MENU LATERAL EM CAMADAS (lima → azul → painel claro), itens numerados que sobem em sequência ===== */
+.ov.sm{--smw:clamp(340px,42vw,540px);position:fixed;inset:0;z-index:80;display:block;padding:0;gap:0;overflow:hidden;background:rgba(8,24,30,0);opacity:1;visibility:hidden;pointer-events:none;transition:background-color .45s var(--ease-out),visibility 0s linear .8s}
+.ov.sm.open{visibility:visible;pointer-events:auto;background:rgba(8,24,30,.55);transition-delay:0s}
+.sm-layer,.sm-panel{position:absolute;top:0;right:0;bottom:0;width:var(--smw);transform:translateX(101%);transition:transform .38s cubic-bezier(.55,0,.85,.3)}
+.sm-l1{background:var(--lime);transition-delay:.1s}
+.sm-l2{background:var(--blue);transition-delay:.05s}
+.sm-panel{background:var(--cream);color:var(--ink);display:flex;flex-direction:column;padding:clamp(18px,3vw,30px) clamp(26px,4vw,52px) clamp(24px,4vw,40px);overflow-y:auto;box-shadow:-20px 0 60px rgba(8,24,30,.25)}
+.ov.sm.open .sm-layer,.ov.sm.open .sm-panel{transform:none;transition:transform .8s cubic-bezier(.16,1,.3,1)}
+.ov.sm.open .sm-l1{transition-delay:0s}.ov.sm.open .sm-l2{transition-delay:.07s}.ov.sm.open .sm-panel{transition-delay:.15s}
+/* botão fechar com o "+" que gira */
+.sm-close{align-self:flex-end;display:inline-flex;align-items:center;gap:12px;padding:10px 2px;border:0;background:none;color:var(--ink);font:800 13px var(--body);letter-spacing:.12em;text-transform:uppercase;cursor:pointer}
+.sm-close .ic{position:relative;display:block;width:18px;height:18px}
+.sm-close .ic::before,.sm-close .ic::after{content:"";position:absolute;left:0;top:50%;width:100%;height:2px;margin-top:-1px;border-radius:2px;background:currentColor;transition:transform .5s var(--ease-out)}
+.sm-close .ic::after{transform:rotate(90deg)}
+.ov.sm.open .sm-close .ic::before{transform:rotate(45deg);transition-delay:.3s}.ov.sm.open .sm-close .ic::after{transform:rotate(-45deg);transition-delay:.3s}
+@media(hover:hover) and (pointer:fine){.sm-close:hover .ic{transform:rotate(90deg);transition:transform .3s var(--ease-out)}}
+/* itens */
+.sm-nav{margin-top:clamp(18px,4vh,44px)}
+.sm-nav ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.sm-nav li{overflow:hidden}
+.sm-nav a{display:flex;align-items:baseline;gap:14px;color:var(--ink)}
+.sm-nav .n{flex:none;min-width:2.1em;font-size:12px;font-weight:800;letter-spacing:.04em;opacity:.4;transform:translateY(-.9em);text-align:center}
+.sm-nav .lbl{display:block;overflow:hidden;padding-bottom:.06em}
+.sm-nav .lbl>span{display:inline-block;font-family:var(--disp);font-weight:700;font-size:clamp(30px,3.4vw,44px);line-height:1.1;letter-spacing:-.025em;text-transform:uppercase;transform:translateY(125%) rotate(7deg);transform-origin:0 100%;transition:transform .3s cubic-bezier(.55,0,.85,.3),color .2s var(--ease-out)}
+.ov.sm.open .sm-nav .lbl>span{transform:none;transition:transform .95s cubic-bezier(.16,1,.3,1) calc(.24s + var(--i,0) * .07s),color .2s var(--ease-out)}
+.sm-nav li{--i:0}.sm-nav li a{--i:inherit}
+.sm-nav a.on .n{opacity:1;background:var(--lime);border-radius:999px;padding:3px 0}
+.sm-nav a.on .lbl>span{color:var(--blue)}
+@media(hover:hover) and (pointer:fine){.sm-nav a:hover .lbl>span{color:var(--blue)}}
+/* rodapé do painel */
+.sm-info{margin-top:auto;padding-top:28px;display:flex;flex-direction:column;gap:16px;border-top:1px solid rgba(18,52,65,.14);color:#2b4a54;font-size:14px;opacity:0;transform:translateY(14px);transition:opacity .25s,transform .25s}
+.ov.sm.open .sm-info{opacity:1;transform:none;transition:opacity .6s var(--ease-out) .55s,transform .6s var(--ease-out) .55s}
+.sm-info div b{display:block;margin-bottom:2px;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--blue)}
+.sm-info .btn{align-self:flex-start}
+.sm-nav{flex:none}.sm-info{flex:none}.sm-nav+.sm-info{margin-top:auto}
+@media(max-width:600px){.ov.sm{--smw:100vw}}
+@media(max-height:640px){.sm-nav ul{gap:2px}.sm-nav .lbl>span{font-size:clamp(26px,3vw,34px)}}
+@media(prefers-reduced-motion:reduce){.sm-layer,.sm-panel,.sm-nav .lbl>span,.sm-info,.sm-close .ic::before,.sm-close .ic::after{transition-duration:.01s!important;transition-delay:0s!important}}

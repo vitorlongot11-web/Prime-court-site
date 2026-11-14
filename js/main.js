@@ -13,11 +13,42 @@ document.querySelectorAll('[data-wa-paulinho]').forEach(a => {
   a.target = '_blank'; a.rel = 'noopener';
 });
 
-// menu overlay
+// menu lateral em camadas (estilo "staggered"): montado a partir dos links do #ov de cada página
 const ov = document.getElementById('ov');
-const setMenu = o => { ov.classList.toggle('open', o); document.body.style.overflow = o ? 'hidden' : ''; };
-document.querySelectorAll('[data-menu]').forEach(b => b.addEventListener('click', () => setMenu(true)));
-document.querySelectorAll('[data-close]').forEach(b => b.addEventListener('click', () => setMenu(false)));
+let ultimoGatilho = null;
+const setMenu = o => {
+  if (!ov) return;
+  ov.classList.toggle('open', o);
+  ov.setAttribute('aria-hidden', o ? 'false' : 'true');
+  document.body.style.overflow = o ? 'hidden' : '';
+  if (o) setTimeout(() => { const c = ov.querySelector('.sm-close'); if (c) c.focus({ preventScroll: true }); }, 60);
+  else if (ultimoGatilho) ultimoGatilho.focus({ preventScroll: true });
+};
+(function montarMenu() {
+  if (!ov) return;
+  const links = [...ov.querySelectorAll('nav a')];
+  const info = ov.querySelector('.info');
+  const filhos = info ? [...info.children].map(c => c.cloneNode(true)) : [];
+  const atual = location.pathname.split('/').pop() || 'index.html';
+  const itens = links.map((a, i) => {
+    const href = a.getAttribute('href');
+    const on = href === atual || (atual === 'torneio.html' && href === 'torneios.html');
+    return `<li style="--i:${i}"><a href="${href}"${on ? ' class="on" aria-current="page"' : ''}><span class="n">${String(i + 1).padStart(2, '0')}</span><span class="lbl"><span>${a.textContent}</span></span></a></li>`;
+  }).join('');
+  ov.classList.add('sm');
+  ov.setAttribute('aria-hidden', 'true');
+  ov.innerHTML = `<div class="sm-layer sm-l1"></div><div class="sm-layer sm-l2"></div>
+    <aside class="sm-panel" role="dialog" aria-modal="true" aria-label="Menu do site">
+      <button class="sm-close" data-close type="button"><span>Fechar</span><i class="ic" aria-hidden="true"></i></button>
+      <div class="sm-nav" role="navigation" aria-label="Páginas do site"><ul>${itens}</ul></div>
+      <div class="sm-info"></div>
+    </aside>`;
+  const caixa = ov.querySelector('.sm-info');
+  filhos.forEach(f => caixa.appendChild(f));
+  caixa.innerHTML = caixa.innerHTML.replace(/CEP\s[\d-]+/g, s => `<span style="white-space:nowrap">${s}</span>`);
+  ov.addEventListener('click', e => { if (e.target.closest('[data-close]') || !e.target.closest('.sm-panel')) setMenu(false); });
+})();
+document.querySelectorAll('[data-menu]').forEach(b => b.addEventListener('click', () => { ultimoGatilho = b; setMenu(true); }));
 addEventListener('keydown', e => { if (e.key === 'Escape') setMenu(false); });
 
 // header sólido ao rolar
