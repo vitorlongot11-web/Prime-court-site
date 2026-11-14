@@ -88,3 +88,15 @@ async function _carregarPlanilha() {
 // espera a planilha (no máximo 4 s) antes de mostrar os torneios
 const TORNEIOS_PRONTO = Promise.race([_carregarPlanilha(), new Promise(r => setTimeout(r, 4000))]);
 function aoCarregarTorneios(fn) { TORNEIOS_PRONTO.then(fn); }
+
+/* Cor própria de cada torneio (paleta "quadra"), igual no calendário e na página do torneio.
+   Devolve { c: fundo, t: texto }. */
+const _CORES_BASE = ['#e8743b', '#b23a48', '#f2c14e', '#d4ec3a', '#2e9d6f', '#4a90d9'];
+const _CORES_ID = { 'torneio-juridico': 0, 'finals-ranking-prime': 1, 'ftms-finals': 2, 'dourados-cup': 3, 'dourados-future': 4 };
+function tCor(t) {
+  const ord = TORNEIOS.slice().sort((a, b) => a.inicio.localeCompare(b.inicio));
+  const i = (t.id in _CORES_ID) ? _CORES_ID[t.id] : ord.findIndex(x => x.id === t.id) + 5;
+  const c = _CORES_BASE[i % _CORES_BASE.length];
+  const [r, g, b] = [1, 3, 5].map(k => parseInt(c.slice(k, k + 2), 16));
+  return { c, t: (0.299 * r + 0.587 * g + 0.114 * b) > 150 ? '#1b1a12' : '#ffffff' };
+}

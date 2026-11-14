@@ -71,15 +71,8 @@ if (evBox) aoCarregarTorneios(() => {
   meses.sort((a, b) => a.y - b.y || a.m - b.m);
   const rank = { next: 3, up: 2, past: 1 };
   const tipo = t => tRealizado(t) ? 'past' : (prox && prox.id === t.id ? 'next' : 'up');
-  // cada torneio tem a sua cor, igual no dia do calendário e no cartão (c = fundo, t = texto)
-  // paleta "quadra": saibro, bordô, areia, lima, verde-quadra, azul-hard
-  const CORES_BASE = ['#e8743b', '#b23a48', '#f2c14e', '#d4ec3a', '#2e9d6f', '#4a90d9'];
-  const PALETA = CORES_BASE.map(c => {
-    const [r, g, b] = [1, 3, 5].map(i => parseInt(c.slice(i, i + 2), 16));
-    return { c, t: (0.299 * r + 0.587 * g + 0.114 * b) > 150 ? '#1b1a12' : '#ffffff' };
-  });
-  const CORES = { 'torneio-juridico': 0, 'finals-ranking-prime': 1, 'ftms-finals': 2, 'dourados-cup': 3, 'dourados-future': 4 };
-  const cor = t => { const p = PALETA[(t.id in CORES ? CORES[t.id] : ord.findIndex(x => x.id === t.id) + 5) % PALETA.length]; return `--c:${p.c};--ct:${p.t}`; };
+  // cada torneio tem a sua cor (tCor, em torneios-lib.js), igual no dia do calendário e no cartão
+  const cor = t => { const p = tCor(t); return `--c:${p.c};--ct:${p.t}`; };
   evBox.innerHTML = meses.map(({ y, m }) => {
     const pref = y + '-' + String(m + 1).padStart(2, '0');
     const doMes = ord.filter(t => t.inicio.slice(0, 7) <= pref && t.fim.slice(0, 7) >= pref);

@@ -11,6 +11,7 @@ aoCarregarTorneios(() => {
   document.title = t.nome + ' — Torneios — Prime Court Tênis · Dourados, MS';
   const st = tStatus(t), datas = tDatas(t);
   const fmtPrazo = s => { const d = dt(s); return d.getDate() + ' de ' + MESES[d.getMonth()]; };
+  const cor = (p => `--c:${p.c};--ct:${p.t}`)(tCor(t));
   const waInsc = tWa('Olá! Quero me inscrever no ' + t.nome + ' (' + datas + ').');
 
   let cta;
@@ -21,8 +22,8 @@ aoCarregarTorneios(() => {
 
   box.innerHTML = `
   <section class="ph-hero"><div class="wrap">
-    <a class="crumb" href="torneios.html">← Torneios</a>
-    <span class="chip ${st.k}" style="margin-bottom:14px"><i></i>${st.label}</span>
+    <a class="voltar" href="torneios.html"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg><span>Torneios</span></a>
+    <div class="t-tags"><span class="t-data" style="${cor}">${datas.toUpperCase()}</span><span class="chip ${st.k}"><i></i>${st.label}</span></div>
     <h1>${t.nome}</h1><p>${t.resumo}</p>
   </div></section>
   <section class="sec wrap"><div class="tdet">
@@ -43,7 +44,7 @@ aoCarregarTorneios(() => {
         <button class="btn dark" type="submit">Enviar pelo WhatsApp →</button>
       </form>
     </div>
-    <aside class="tdet-side"><div class="info-box">
+    <aside class="tdet-side"><div class="info-box" style="${cor}">
       <div><b>Data</b>${datas}</div>
       <div><b>Horário</b>${t.horario}</div>
       <div><b>Local</b>${t.local}</div>
