@@ -1,27 +1,33 @@
-/* Movimento do site: contagem dos números, título palavra por palavra, parallax do topo e cartaz que inclina.
+/* Movimento do site: contagem dos números, título letra por letra, parallax do topo e cartaz que inclina.
    Quem pede "reduzir movimento" no aparelho não recebe esses efeitos. */
 (() => {
   const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const MOUSE = matchMedia('(hover: hover) and (pointer: fine)').matches;
 
-  // --- título palavra por palavra (antes da primeira pintura, sem piscar)
+  // --- título letra por letra: cada letra desce de dentro de uma "janela" (corte vertical)
   const h1 = document.querySelector('.hero h1');
   if (h1) {
     if (!RM) {
+      h1.setAttribute('aria-label', h1.textContent.replace(/\s+/g, ' ').trim());
       let i = 0;
-      const walk = n => [...n.childNodes].forEach(c => {
+      const walk = (n, extra) => [...n.childNodes].forEach(c => {
         if (c.nodeType === 3) {
           const f = document.createDocumentFragment();
           c.textContent.split(/(\s+)/).forEach(w => {
             if (!w.trim()) { f.append(w); return; }
-            const s = document.createElement('span');
-            s.className = 'w'; s.style.animationDelay = (.08 + i++ * .04) + 's'; s.textContent = w;
-            f.append(s);
+            const p = document.createElement('span');
+            p.className = 'w'; p.setAttribute('aria-hidden', 'true');
+            [...w].forEach(ch => {
+              const l = document.createElement('span'), s = document.createElement('i');
+              l.className = 'l'; s.textContent = ch; s.style.setProperty('--d', (.1 + extra + i++ * .015).toFixed(3) + 's');
+              l.append(s); p.append(l);
+            });
+            f.append(p);
           });
           c.replaceWith(f);
-        } else walk(c);
+        } else walk(c, c.classList && c.classList.contains('lime') ? .12 : extra);
       });
-      walk(h1);
+      walk(h1, 0);
     }
     h1.classList.add('sp');
   }

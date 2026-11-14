@@ -4,6 +4,7 @@
 @keyframes mv-rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
 @keyframes mv-drop{from{opacity:0;transform:translateY(-16px)}to{opacity:1;transform:none}}
 @keyframes mv-flt{50%{translate:0 -7px}}
+@keyframes mv-letra{from{transform:translateY(-115%)}to{transform:none}}
 @keyframes mv-word{from{opacity:0;transform:translateY(.45em);filter:blur(5px)}to{opacity:1;transform:none;filter:none}}
 @keyframes mv-zoom{from{scale:1.1}to{scale:1}}
 @keyframes mv-pop{from{opacity:0;transform:scale(.96) translateY(8px)}to{opacity:1;transform:none}}
@@ -24,7 +25,9 @@ body.mv-3 .hero .txt>p{animation-delay:.2s}
 body.mv-3 .hero .cta{animation-delay:.28s}
 body.mv-3 .hero .quick{animation-delay:.36s}
 body.mv-3 .hero h1:not(.sp){opacity:0;animation:mv-show 0s 1.2s forwards} /* plano B se o script falhar */
-body.mv-3 .hero h1 .w{display:inline-block;animation:mv-word .4s var(--ease-out) backwards}
+body.mv-3 .hero h1 .w{display:inline-block;white-space:nowrap}
+body.mv-3 .hero h1 .l{display:inline-block;overflow:hidden;vertical-align:top;padding:.12em .03em .22em;margin:-.12em -.03em -.22em}
+body.mv-3 .hero h1 .l>i{display:inline-block;font-style:normal;animation:mv-letra .5s var(--ease-out) backwards;animation-delay:var(--d,0s)}
 body.mv-3 .hero picture{display:block;will-change:translate}
 body.mv-3 .hero picture img{animation:mv-zoom 12s var(--ease-out) both}
 
@@ -62,7 +65,7 @@ details[open]>p{animation:mv-rise .35s var(--ease-out)}
 @media(prefers-reduced-motion:reduce){
   body.mv-3 .rv>*{opacity:1}
   body.mv-3 .rv.in>*,.pop-box,.ov.open nav a,details[open]>p,body.mv-3 .hero .badge,body.mv-3 .hero .txt>p,body.mv-3 .hero .cta,body.mv-3 .hero .quick{animation:mv-fade .25s both}
-  body.mv-3 .hero picture img,body.mv-3 .news-poster,body.mv-3 .hero h1 .w{animation:none}
+  body.mv-3 .hero picture img,body.mv-3 .news-poster,body.mv-3 .hero h1 .l>i{animation:none}
   body.mv-3 .hero h1:not(.sp){opacity:1;animation:none}
   body.mv-3 .np-in{transform:none}
   @view-transition{navigation:none}
