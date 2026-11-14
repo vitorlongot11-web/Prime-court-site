@@ -59,28 +59,58 @@ aoCarregarTorneios(() => {
       </article>`;
     slot.replaceWith(sec);
   }
-
-  // 3) pop-up
-  if (isHome && (modo === 'popup' || modo === 'popup+cartao') && !store.get('pop-visto')) {
-    setTimeout(() => {
-      const d = document.createElement('div');
-      d.className = 'pop-ov';
-      d.innerHTML = `<div class="pop-box" role="dialog" aria-label="Próximo torneio">
-        <button class="pop-x" aria-label="Fechar">×</button>
-        ${t.cartaz ? `<img class="pop-img" src="${t.cartaz}" alt="Cartaz do ${t.nome}">` : `<div class="photo clay r169"><span>Cartaz do torneio</span></div>`}
-        <div class="pop-in"><span class="chip ${st.k}"><i></i>${st.label}</span>
-          <small class="kick">Próximo torneio · ${datas}</small>
-          <h2>${t.nome}</h2><p>${t.resumo}</p>
-          <a class="btn" href="${link}">Ver informações →</a></div></div>`;
-      document.body.appendChild(d);
-      store.set('pop-visto', '1');
-      const close = () => { d.classList.add('out'); setTimeout(() => d.remove(), 170); };
-      d.addEventListener('click', e => { if (e.target === d || e.target.closest('.pop-x')) close(); });
-      // deslizar o dedo (ou girar o scroll) fora do cartaz fecha o pop-up, para a página nunca ficar "travada"
-      const solta = e => { if (!e.target.closest('.pop-box')) close(); };
-      d.addEventListener('touchmove', solta, { passive: true });
-      d.addEventListener('wheel', solta, { passive: true });
-      addEventListener('keydown', e => { if (e.key === 'Escape') close(); }, { once: true });
-    }, 900);
-  }
 });
+
+/* Pop-up do próximo torneio (só no Início, 1 vez por visita).
+   Abre logo, com os dados locais, sem esperar a planilha do Google (que pode demorar no celular).
+   Quando a planilha chega, se algo mudou (torneio, datas, status), o conteúdo é atualizado ali mesmo. */
+(() => {
+  const modo = ANUNCIO_MODO;
+  if (!document.querySelector('.hero') || !(modo === 'popup' || modo === 'popup+cartao')) return;
+  const store = {
+    get: k => { try { return sessionStorage.getItem(k); } catch (e) { return null; } },
+    set: (k, v) => { try { sessionStorage.setItem(k, v); } catch (e) {} },
+  };
+  if (store.get('pop-visto')) return;
+  const t0 = tProximo();
+  if (!t0) return;
+  const real = v => v && !String(v).trim().startsWith('[');
+  const ic = p => `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${p}</svg>`;
+  const chave = t => [t.id, t.nome, t.inicio, t.fim, t.inscricoes, t.cartaz, t.local].join('|');
+  const conteudo = t => {
+    const st = tStatus(t), cor = tCor(t), link = 'torneio.html?id=' + t.id;
+    return `${t.cartaz ? `<img class="pop-img" src="${t.cartaz}" alt="Cartaz do ${t.nome}">` : `<div class="photo clay r169"><span>Cartaz do torneio</span></div>`}
+      <div class="pop-in">
+        <div class="pop-meta"><small class="kick">Próximo torneio</small><span class="chip ${st.k}"><i></i>${st.label}</span></div>
+        <h2>${t.nome}</h2>
+        <div class="pop-facts">
+          <div class="pf" style="--c:${cor.c};--ct:${cor.t}"><span class="pf-ic">${ic('<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/>')}</span><span class="pf-tx"><small>Data</small><b>${tDatasLongas(t)}</b></span></div>
+          ${real(t.local) ? `<div class="pf" style="--c:${cor.c};--ct:${cor.t}"><span class="pf-ic">${ic('<path d="M12 21s7-6.2 7-11a7 7 0 0 0-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/>')}</span><span class="pf-tx"><small>Local</small><b>${t.local}</b></span></div>` : ''}
+        </div>
+        <a class="btn" href="${link}">Ver informações →</a>
+      </div>`;
+  };
+  let d = null, atual = chave(t0);
+  const abrir = () => {
+    d = document.createElement('div');
+    d.className = 'pop-ov';
+    d.innerHTML = `<div class="pop-box" role="dialog" aria-label="Próximo torneio"><button class="pop-x" aria-label="Fechar">×</button><div class="pop-dyn">${conteudo(t0)}</div></div>`;
+    document.body.appendChild(d);
+    store.set('pop-visto', '1');
+    const close = () => { d.classList.add('out'); setTimeout(() => d.remove(), 170); d = null; };
+    d.addEventListener('click', e => { if (e.target === d || e.target.closest('.pop-x')) close(); });
+    // deslizar o dedo (ou girar o scroll) fora do cartaz fecha o pop-up, para a página nunca ficar "travada"
+    const solta = e => { if (!e.target.closest('.pop-box')) close(); };
+    d.addEventListener('touchmove', solta, { passive: true });
+    d.addEventListener('wheel', solta, { passive: true });
+    addEventListener('keydown', e => { if (e.key === 'Escape' && d) close(); }, { once: true });
+  };
+  setTimeout(abrir, 250);
+  aoCarregarTorneios(() => {
+    const t = tProximo();
+    if (!d || !t || chave(t) === atual) return;
+    atual = chave(t);
+    const box = d.querySelector('.pop-dyn');
+    if (box) box.innerHTML = conteudo(t);
+  });
+})();

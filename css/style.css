@@ -1052,3 +1052,40 @@ body.pg-torneios .duvida label{color:var(--cream)}
 .enc-cta h2{font-size:clamp(26px,3.4vw,42px);max-width:18ch}
 .enc-cta p{margin-top:8px;color:#d5e6ea}
 @media(max-width:560px){.enc-cta .btn{width:100%}}
+
+/* ===== POP-UP DO PRÓXIMO TORNEIO: foto no topo + bloco organizado (etiqueta, título, data, local, botão) ===== */
+.pop-ov .pop-box{overflow-y:auto;max-height:94svh}
+.pop-ov .pop-box .pop-in{display:flex;flex-direction:column;align-items:stretch;gap:12px;padding:18px 20px 20px}
+.pop-meta{display:flex;align-items:center;justify-content:space-between;gap:8px 10px;flex-wrap:wrap}
+.pop-ov .pop-in .kick{font-size:11px;font-weight:800;letter-spacing:.12em;color:var(--blue);white-space:nowrap}
+.pop-ov .pop-in .chip{height:26px;padding:0 11px;font-size:11px;background:rgba(18,52,65,.08);color:var(--ink)}
+.pop-ov .pop-in .chip.abertas{background:var(--lime)}
+.pop-ov .pop-in h2{font-size:clamp(22px,6.2vw,28px)!important;line-height:1.08;letter-spacing:-.02em}
+.pop-facts{display:flex;flex-direction:column;gap:10px;padding:2px 0 4px}
+.pf{display:flex;align-items:center;gap:12px;min-width:0}
+.pf-ic{flex:none;display:grid;place-items:center;width:40px;height:40px;border-radius:13px;background:var(--c);color:var(--ct);box-shadow:0 8px 16px -8px color-mix(in srgb,var(--c) 70%,#102a33)}
+.pf-tx{display:flex;flex-direction:column;min-width:0;line-height:1.2}
+.pf-tx small{font-size:10.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.pf-tx b{font-size:16px;font-weight:700}
+.pop-ov .pop-in .btn{width:100%;height:46px;margin-top:2px;padding:0 16px;font-size:13px}
+.pop-ov .pop-in .chip.encerradas{background:#f0c9c0;color:#7a2616}
+
+/* ===== POP-UP DEITADO: cartaz à esquerda, informações à direita ===== */
+.pop-ov .pop-box{width:min(100%,620px);min-width:0;max-width:100%;max-height:94svh;overflow:hidden}
+.pop-ov .pop-dyn{display:grid;grid-template-columns:minmax(0,.86fr) minmax(0,1.14fr);align-items:stretch}
+.pop-ov .pop-dyn>.pop-img{width:100%;height:100%;min-height:100%;aspect-ratio:auto;object-fit:contain;background:#1a0d08;border-radius:0}
+.pop-ov .pop-dyn>.photo{width:100%;height:100%;min-height:0;aspect-ratio:auto;border-radius:0}
+.pop-ov .pop-box .pop-in{justify-content:center;padding:20px 22px 20px 20px;gap:12px}
+.pop-ov .pop-x{left:8px;right:auto;background:rgba(244,241,232,.92)}
+.pop-ov .pop-in h2{font-size:clamp(22px,3.2vw,30px)!important}
+@media(max-width:560px){
+  .pop-ov{padding:12px}
+  .pop-ov .pop-dyn{grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr)}
+  .pop-ov .pop-box .pop-in{padding:14px 14px 14px 12px;gap:9px}
+  .pop-meta{flex-direction:column;align-items:flex-start;gap:6px}
+  .pop-ov .pop-in h2{font-size:clamp(18px,5.6vw,22px)!important}
+  .pf{gap:9px}.pf-ic{width:32px;height:32px;border-radius:11px}.pf-ic svg{width:17px;height:17px}
+  .pf-tx small{font-size:9.5px}.pf-tx b{font-size:13.5px}
+  .pop-facts{gap:8px;padding:0}
+  .pop-ov .pop-in .btn{height:40px;font-size:11.5px;letter-spacing:.04em;padding:0 10px}
+}
