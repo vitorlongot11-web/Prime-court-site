@@ -1032,3 +1032,23 @@ body.pg-torneios .duvida label{color:var(--cream)}
 .btn.ghost:active,.voltar:active,.btn.sweep:active{color:var(--ink)}
 .btn.sweep{border:1.5px solid transparent}
 @media(prefers-reduced-motion:reduce){.btn.ghost::before,.voltar::before,.btn.sweep::before{transition-duration:.01s}}
+
+/* ===== ENCORDOAMENTO ===== */
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+.res-card .rc-big{display:inline-grid;place-items:center;width:68px;height:68px;margin:8px 0 14px;border-radius:22px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.24);color:var(--lime);box-shadow:0 12px 26px -12px rgba(8,24,30,.5)}
+.res-card.c3 .rc-big{background:rgba(18,52,65,.08);border-color:rgba(18,52,65,.14);color:var(--teal)}
+.rc-chips.lite span{background:rgba(255,255,255,.14);box-shadow:none;border:1px solid rgba(255,255,255,.22)}
+.res-card.c2 .rc-chips span{background:rgba(255,255,255,.16)}
+.tz{display:flex;align-items:center;gap:12px;margin-top:auto;padding-top:22px;font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase}
+.tz i{position:relative;flex:1;height:8px;border-radius:99px;background:linear-gradient(90deg,var(--lime),rgba(255,255,255,.25))}
+.tz b{position:absolute;top:50%;left:62%;width:20px;height:20px;margin:-10px 0 0 -10px;border-radius:50%;background:#fff;border:3px solid var(--lime);box-shadow:0 4px 12px rgba(8,24,30,.4)}
+/* Paulinho */
+.enc-points{list-style:none;margin:22px 0 0;padding:0;display:flex;flex-direction:column;gap:10px}
+.enc-points li{display:flex;align-items:center;gap:10px;font-weight:600}
+.enc-points svg{flex:none;color:#1c7a2e;background:#e4f3d0;border-radius:50%;padding:4px;width:26px;height:26px}
+/* convite final */
+.enc-cta-sec{padding-bottom:clamp(48px,7vw,88px)}
+.enc-cta{display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;padding:clamp(28px,4vw,48px);border-radius:30px;color:var(--cream);background:radial-gradient(circle at 100% 0,rgba(212,236,58,.3),transparent 46%),radial-gradient(circle at 0 100%,rgba(47,114,141,.7),transparent 52%),linear-gradient(155deg,#1e4b5e,#0f2c37);box-shadow:0 30px 56px -24px rgba(18,52,65,.6)}
+.enc-cta h2{font-size:clamp(26px,3.4vw,42px);max-width:18ch}
+.enc-cta p{margin-top:8px;color:#d5e6ea}
+@media(max-width:560px){.enc-cta .btn{width:100%}}
