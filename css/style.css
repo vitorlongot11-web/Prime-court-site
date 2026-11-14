@@ -797,7 +797,7 @@ body.fx-3{background-color:#f1ecde}
 .mes .ci.ev-next .tg{color:var(--teal);opacity:1}
 .mes .ci.ev-next .tg.abertas{background:var(--lime);color:var(--ink)}
 .mes .ci.ev-next .tg.encerradas{color:#a3321f}
-@media(max-width:560px){.mes .ci{grid-template-columns:56px 1fr}.mes .ci .tg{grid-column:2;justify-self:start}}
+@media(max-width:560px){.mes .ci{grid-template-columns:56px 1fr}.mes .ci .cf{grid-column:2}}
 .mes .vazio{font-size:13px;color:rgba(255,255,255,.65);text-align:center;padding:6px 0 2px}
 
 /* cor própria de cada torneio (var --c / --ct vem do JS): mesma no dia do calendário e no cartão */
@@ -840,3 +840,14 @@ body.pg-torneios .news-sec{padding-top:6px!important}
 
 .prox-sec{padding-top:clamp(22px,3vw,34px)}
 .prox-sec .cal-titulo{margin-bottom:0}
+
+/* Torneios: "Saiba mais" em cada cartão, para deixar claro que dá para tocar */
+.mes .cf{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px 12px}
+.mes .ci[style] .mais{display:inline-flex;align-items:center;gap:6px;margin-left:auto;font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--ct);white-space:nowrap;border-bottom:1.5px solid color-mix(in srgb,var(--ct) 55%,transparent);padding-bottom:1px}
+.mes .ci .mais i{font-style:normal;transition:transform .2s var(--ease-out)}
+@media(hover:hover) and (pointer:fine){.mes .ci:hover .mais i{transform:translateX(4px)}}
+@media(min-width:561px){.mes .cf{flex-direction:column;align-items:flex-end}.mes .ci[style] .mais{margin-left:0}}
+
+/* etiqueta de status sempre em uma linha só */
+.mes .tg{white-space:nowrap}
+@media(max-width:560px){.mes .cf .tg{font-size:9px;letter-spacing:.04em;padding:4px 8px}}

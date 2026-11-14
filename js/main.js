@@ -95,7 +95,7 @@ if (evBox) aoCarregarTorneios(() => {
     }
     const lista = doMes.map(t => {
       const st = tStatus(t), ty = tipo(t);
-      return `<a class="ci ev-${ty}" style="${cor(t)}" href="torneio.html?id=${t.id}"><div class="cd"><b>${tDatas(t).split(' ')[0]}</b><span>${MESES[dt(t.inicio).getMonth()]}</span></div><div class="cn"><h3>${t.nome}</h3><p>${t.resumo}</p></div><span class="tg ${st.k}">${ty === 'next' ? 'Próximo · ' : ''}${st.label}</span></a>`;
+      return `<a class="ci ev-${ty}" style="${cor(t)}" href="torneio.html?id=${t.id}"><div class="cd"><b>${tDatas(t).split(' ')[0]}</b><span>${MESES[dt(t.inicio).getMonth()]}</span></div><div class="cn"><h3>${t.nome}</h3><p>${t.resumo}</p></div><div class="cf"><span class="tg ${st.k}">${ty === 'next' ? 'Próximo · ' : ''}${st.label}</span><span class="mais">Saiba mais <i>→</i></span></div></a>`;
     }).join('');
     return `<article class="mes"><header><h2>${MESES_FULL[m]}</h2><span>${y}</span></header>
       <div class="gr"><b>D</b><b>S</b><b>T</b><b>Q</b><b>Q</b><b>S</b><b>S</b>${cel}</div>
