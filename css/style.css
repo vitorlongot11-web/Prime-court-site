@@ -1,4 +1,4 @@
-:root{
+:root{color-scheme:light;
   --deep:#0f2c37; --ink:#123441; --teal:#1e4b5e; --blue:#2f728d; --mist:#c9dfe4;
   --lime:#d4ec3a; --lime2:#e2f46a; --cream:#f4f1e8; --line:#d8d1c1; --muted:#55686f;
   --pad:clamp(20px,5vw,56px); --max:1200px; --r:22px;
