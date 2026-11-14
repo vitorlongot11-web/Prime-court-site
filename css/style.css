@@ -826,12 +826,17 @@ body.pg-torneios .news::before,body.pg-torneios .news::after{display:none}
 body.pg-torneios .news-body{background:none;border:0;box-shadow:none;-webkit-backdrop-filter:none;backdrop-filter:none;padding:0}
 body.pg-torneios .news-facts li{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.16)}
 
-/* Torneios: seta que sobe e desce abaixo do título */
-.seta-baixo{display:inline-grid;place-items:center;width:48px;height:48px;margin-top:28px;border-radius:50%;border:1.5px solid rgba(255,255,255,.45);color:var(--lime);background:rgba(255,255,255,.08);animation:seta-sobe-desce 1.6s ease-in-out infinite;transition:background-color .2s,border-color .2s}
-.seta-baixo:hover{background:var(--lime);color:var(--ink);border-color:var(--lime)}
-@keyframes seta-sobe-desce{0%,100%{transform:translateY(0)}50%{transform:translateY(10px)}}
-@media(prefers-reduced-motion:reduce){.seta-baixo{animation:none}}
 
 /* Torneios: card do próximo torneio mais perto da setinha */
 body.pg-torneios .ph-hero{padding-bottom:clamp(12px,2vw,20px)}
 body.pg-torneios .news-sec{padding-top:6px!important}
+
+/* Torneios: título centralizado acima do calendário */
+.cal-titulo{display:flex;align-items:center;justify-content:center;gap:clamp(12px,2.5vw,24px);margin:0 0 clamp(22px,3vw,32px)}
+.cal-titulo h2{font-size:clamp(26px,4.2vw,42px);font-weight:600;letter-spacing:-.02em;text-align:center;color:var(--cream);white-space:nowrap}
+.cal-titulo i{flex:1;max-width:160px;height:2px;border-radius:2px;background:linear-gradient(90deg,transparent,rgba(212,236,58,.8))}
+.cal-titulo i:last-child{background:linear-gradient(270deg,transparent,rgba(212,236,58,.8))}
+@media(max-width:420px){.cal-titulo h2{white-space:normal;font-size:24px}.cal-titulo i{max-width:36px}}
+
+.prox-sec{padding-top:clamp(22px,3vw,34px)}
+.prox-sec .cal-titulo{margin-bottom:0}

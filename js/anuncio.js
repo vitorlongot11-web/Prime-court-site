@@ -3,7 +3,8 @@
 aoCarregarTorneios(() => {
   const slot = document.getElementById('news-slot');
   const t = tProximo();
-  if (!t) { if (slot) slot.remove(); return; }
+  const tit = document.getElementById('prox-titulo');
+  if (!t) { if (slot) slot.remove(); if (tit) tit.remove(); return; }
   const store = {
     get: k => { try { return sessionStorage.getItem(k); } catch (e) { return null; } },
     set: (k, v) => { try { sessionStorage.setItem(k, v); } catch (e) {} },
@@ -27,7 +28,7 @@ aoCarregarTorneios(() => {
     document.body.classList.add('has-strip');
   }
 
-  if (slot && !(modo === 'faixa+cartao' || modo === 'cartao' || modo === 'popup+cartao')) slot.remove();
+  if (slot && !(modo === 'faixa+cartao' || modo === 'cartao' || modo === 'popup+cartao')) { slot.remove(); if (tit) tit.remove(); }
 
   // 2) cartão grande no Início
   if (slot && (modo === 'faixa+cartao' || modo === 'cartao' || modo === 'popup+cartao')) {
