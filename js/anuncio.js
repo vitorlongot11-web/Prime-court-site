@@ -1,4 +1,4 @@
-/* Anúncio do próximo torneio: cartão no Início + pop-up (1 vez por visita).
+/* Anúncio do próximo torneio: cartão na página Torneios + pop-up no Início (1 vez por visita).
    O formato fica em ANUNCIO_MODO, no torneios-data.js. */
 aoCarregarTorneios(() => {
   const slot = document.getElementById('news-slot');
@@ -30,7 +30,7 @@ aoCarregarTorneios(() => {
   if (slot && !(modo === 'faixa+cartao' || modo === 'cartao' || modo === 'popup+cartao')) slot.remove();
 
   // 2) cartão grande no Início
-  if (isHome && (modo === 'faixa+cartao' || modo === 'cartao' || modo === 'popup+cartao')) {
+  if (slot && (modo === 'faixa+cartao' || modo === 'cartao' || modo === 'popup+cartao')) {
     const a = dt(t.inicio);
     const sec = document.createElement('section');
     sec.className = 'sec wrap news-sec';
@@ -56,7 +56,7 @@ aoCarregarTorneios(() => {
           </div>
         </div>
       </article>`;
-    if (slot) slot.replaceWith(sec); else document.querySelector('.hero').after(sec);
+    slot.replaceWith(sec);
   }
 
   // 3) pop-up
