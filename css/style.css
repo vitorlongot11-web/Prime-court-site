@@ -1016,3 +1016,19 @@ body.pg-torneios .duvida label{color:var(--cream)}
 @media(prefers-reduced-motion:reduce){.res-card{transition:none}}
 .res-card.c1 .rc-viz{flex-wrap:nowrap;gap:6px}
 .res-card.c1 .mc{flex:1 1 0;min-width:10px;max-width:24px;width:auto;height:36px}
+
+/* ===== BOTÕES SECUNDÁRIOS: faixa inclinada que preenche ao passar o mouse (contorno → lima) ===== */
+.btn.ghost,.voltar,.btn.sweep{position:relative;overflow:hidden;isolation:isolate;transition:color .45s var(--ease-out),transform .45s var(--ease-out),box-shadow .45s var(--ease-out),border-color .45s var(--ease-out),background-color .2s}
+.btn.ghost::before,.voltar::before,.btn.sweep::before{content:"";position:absolute;z-index:-1;top:0;left:-40px;width:0;height:100%;background:var(--lime);transform:skewX(35deg);transition:width .5s var(--ease-out)}
+@media(hover:hover) and (pointer:fine){
+  .btn.ghost:hover,.voltar:hover,.btn.sweep:hover{color:var(--ink);border-color:var(--lime);transform:translateY(-1px) scale(1.03);box-shadow:0 10px 24px -8px rgba(212,236,58,.6)}
+  .btn.ghost:hover::before,.voltar:hover::before,.btn.sweep:hover::before{width:230%}
+  .btn.ghost:hover{background:transparent}
+  .voltar:hover{background:rgba(255,255,255,.1)}
+  .voltar:hover svg{transform:translateX(-3px)}
+  .btn.sweep:hover{background:var(--teal)}
+}
+.btn.ghost:active::before,.voltar:active::before,.btn.sweep:active::before{width:230%}
+.btn.ghost:active,.voltar:active,.btn.sweep:active{color:var(--ink)}
+.btn.sweep{border:1.5px solid transparent}
+@media(prefers-reduced-motion:reduce){.btn.ghost::before,.voltar::before,.btn.sweep::before{transition-duration:.01s}}
