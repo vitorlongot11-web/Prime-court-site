@@ -15,7 +15,7 @@ aoCarregarTorneios(() => {
   const waInsc = tWa('Olá! Quero me inscrever no ' + t.nome + ' (' + datas + ').');
 
   let cta;
-  if (st.k === 'abertas') cta = `<a class="btn" target="_blank" rel="noopener" href="${waInsc}">Quero me inscrever →</a>${t.prazo ? `<p class="small">Inscrições até ${fmtPrazo(t.prazo)}.</p>` : ''}`;
+  if (st.k === 'abertas') cta = `<a class="btn beam" target="_blank" rel="noopener" href="${waInsc}">Quero me inscrever →</a>${t.prazo ? `<p class="small">Inscrições até ${fmtPrazo(t.prazo)}.</p>` : ''}`;
   else if (st.k === 'encerradas') cta = `<span class="btn off">Inscrições encerradas</span><a class="btn dark" target="_blank" rel="noopener" href="${tWa('Olá! Gostaria de saber sobre a lista de espera do ' + t.nome + '.')}">Perguntar sobre vaga</a>`;
   else if (st.k === 'realizado') cta = `<span class="btn off">Torneio realizado</span><a class="btn dark" href="torneios.html">Ver próximos torneios</a>`;
   else cta = `<span class="btn off">Inscrições em breve</span><a class="btn dark" target="_blank" rel="noopener" href="${tWa('Olá! Quero ser avisado quando abrirem as inscrições do ' + t.nome + '.')}">Avisar-me quando abrir</a>`;

@@ -920,3 +920,19 @@ body.pg-torneios .duvida label{color:var(--cream)}
 @media(max-width:600px){.ov.sm{--smw:100vw}}
 @media(max-height:640px){.sm-nav ul{gap:2px}.sm-nav .lbl>span{font-size:clamp(26px,3vw,34px)}}
 @media(prefers-reduced-motion:reduce){.sm-layer,.sm-panel,.sm-nav .lbl>span,.sm-info,.sm-close .ic::before,.sm-close .ic::after{transition-duration:.01s!important;transition-delay:0s!important}}
+
+/* ===== BOTÃO COM FEIXE DE LUZ GIRANDO NA BORDA (CTA principal: topo, hero e rodapé) ===== */
+@property --beam-ang{syntax:"<angle>";initial-value:0deg;inherits:false}
+@keyframes beam-spin{to{--beam-ang:360deg}}
+.btn.beam,.hd .btn,.hero .cta .btn.big,.ft .row>.btn{position:relative;isolation:isolate}
+.btn.beam::before,.hd .btn::before,.hero .cta .btn.big::before,.ft .row>.btn::before{content:"";position:absolute;inset:-3px;padding:3px;border-radius:inherit;pointer-events:none;z-index:-1;
+  background:conic-gradient(from var(--beam-ang),transparent 0%,transparent 45%,rgba(226,244,106,.7) 72%,#fff 92%,rgba(255,255,255,0) 100%);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0);
+  filter:drop-shadow(0 0 8px rgba(226,244,106,.9));animation:beam-spin 2.6s linear infinite}
+.hd .btn::before{animation-duration:3.6s}
+.btn.beam:hover,.hd .btn:hover,.hero .cta .btn.big:hover,.ft .row>.btn:hover{background:radial-gradient(circle at 50% 0,rgba(255,255,255,.55),transparent 70%),var(--lime2)}
+@media(prefers-reduced-motion:reduce){.btn.beam::before,.hd .btn::before,.hero .cta .btn.big::before,.ft .row>.btn::before{animation:none;--beam-ang:210deg}}
+
+/* feixe no painel claro do menu: azul, para aparecer sobre o bege */
+.sm-info .btn.beam::before{background:conic-gradient(from var(--beam-ang),transparent 0%,transparent 45%,rgba(47,114,141,.55) 72%,var(--blue) 92%,rgba(47,114,141,0) 100%);filter:drop-shadow(0 0 6px rgba(47,114,141,.55))}
+.sm-info .btn.beam:hover{background:radial-gradient(circle at 50% 0,rgba(255,255,255,.55),transparent 70%),var(--lime2)}

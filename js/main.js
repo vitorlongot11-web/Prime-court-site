@@ -45,6 +45,7 @@ const setMenu = o => {
     </aside>`;
   const caixa = ov.querySelector('.sm-info');
   filhos.forEach(f => caixa.appendChild(f));
+  const cta = caixa.querySelector('.btn'); if (cta) cta.classList.add('beam');
   caixa.innerHTML = caixa.innerHTML.replace(/CEP\s[\d-]+/g, s => `<span style="white-space:nowrap">${s}</span>`);
   ov.addEventListener('click', e => { if (e.target.closest('[data-close]') || !e.target.closest('.sm-panel')) setMenu(false); });
 })();
