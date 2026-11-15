@@ -1127,3 +1127,4 @@ body.pg-torneios .duvida label{color:var(--cream)}
 }
 /* cartaz do pop-up um pouco mais baixo (2:1) */
 .pop-ov .pop-dyn>.pop-img,.pop-ov .pop-dyn>.photo{aspect-ratio:2/1}
+.pop-ov.out{pointer-events:none}

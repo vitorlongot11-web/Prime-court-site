@@ -100,12 +100,13 @@ aoCarregarTorneios(() => {
     d.innerHTML = `<div class="pop-box" role="dialog" aria-label="Próximo torneio"><button class="pop-x" aria-label="Fechar">×</button><div class="pop-dyn">${conteudo(tAgora)}</div></div>`;
     document.body.appendChild(d);
     store.set('pop-visto', '1');
-    const close = () => { d.classList.add('out'); setTimeout(() => d.remove(), 170); d = null; };
-    d.addEventListener('click', e => { if (e.target === d || e.target.closest('.pop-x')) close(); });
+    const el = d;
+    const close = () => { if (!d) return; d = null; el.classList.add('out'); setTimeout(() => el.remove(), 170); };
+    el.addEventListener('click', e => { if (e.target === el || e.target.closest('.pop-x')) close(); });
     // deslizar o dedo (ou girar o scroll) fora do cartaz fecha o pop-up, para a página nunca ficar "travada"
     const solta = e => { if (!e.target.closest('.pop-box')) close(); };
-    d.addEventListener('touchmove', solta, { passive: true });
-    d.addEventListener('wheel', solta, { passive: true });
+    el.addEventListener('touchmove', solta, { passive: true });
+    el.addEventListener('wheel', solta, { passive: true });
     addEventListener('keydown', e => { if (e.key === 'Escape' && d) close(); }, { once: true });
   };
   setTimeout(abrir, 250);
