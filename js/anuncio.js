@@ -20,6 +20,7 @@ aoCarregarTorneios(() => {
 
   // 1) faixa no topo (todas as páginas)
   if (modo === 'faixa+cartao') {
+    document.querySelectorAll('.strip').forEach(s => s.remove());
     const hd = document.querySelector('.hd');
     const a = document.createElement('a');
     a.className = 'strip'; a.href = link;
@@ -35,6 +36,7 @@ aoCarregarTorneios(() => {
     const a = dt(t.inicio);
     const sec = document.createElement('section');
     sec.className = 'sec wrap news-sec';
+    sec.id = 'news-slot'; // permite atualizar o cartão quando a planilha traz dados novos
     const real = v => v && !String(v).trim().startsWith('[');
     const ic = p => `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${p}</svg>`;
     const fatos = [
@@ -94,7 +96,8 @@ aoCarregarTorneios(() => {
   const abrir = () => {
     d = document.createElement('div');
     d.className = 'pop-ov';
-    d.innerHTML = `<div class="pop-box" role="dialog" aria-label="Próximo torneio"><button class="pop-x" aria-label="Fechar">×</button><div class="pop-dyn">${conteudo(t0)}</div></div>`;
+    const tAgora = tProximo() || t0; atual = chave(tAgora);
+    d.innerHTML = `<div class="pop-box" role="dialog" aria-label="Próximo torneio"><button class="pop-x" aria-label="Fechar">×</button><div class="pop-dyn">${conteudo(tAgora)}</div></div>`;
     document.body.appendChild(d);
     store.set('pop-visto', '1');
     const close = () => { d.classList.add('out'); setTimeout(() => d.remove(), 170); d = null; };

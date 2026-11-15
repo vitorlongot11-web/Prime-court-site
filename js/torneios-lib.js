@@ -61,6 +61,20 @@ async function _aba(nome) {
   const rows = _csv(await r.text()); const head = rows.shift().map(h => h.trim());
   return rows.map(r => Object.fromEntries(head.map((h, i) => [h, (r[i] || '').trim()]))).filter(o => Object.values(o).some(Boolean));
 }
+/* Dados na hora: o site mostra os torneios sem esperar a planilha.
+   - usa a cópia da última visita (guardada no aparelho), se existir;
+   - quando a planilha chega, atualiza só se algo mudou. */
+const _CACHE_KEY = 'prime-torneios-v1';
+let _mudou = false;
+(function _usarCache() {
+  try {
+    const salvo = JSON.parse(localStorage.getItem(_CACHE_KEY) || 'null');
+    if (!Array.isArray(salvo) || !salvo.length) return;
+    const locais = TORNEIOS.slice();
+    salvo.forEach(t => { const l = locais.find(x => x.id === t.id); if (l && l.cartaz) t.cartaz = l.cartaz; });
+    TORNEIOS.length = 0; TORNEIOS.push(...salvo);
+  } catch (e) {}
+})();
 async function _carregarPlanilha() {
   if (!PLANILHA_ID) return;
   try {
@@ -82,12 +96,18 @@ async function _carregarPlanilha() {
         premiacao: t.premiacao,
       };
     });
-    if (lista.length) { TORNEIOS.length = 0; TORNEIOS.push(...lista); }
+    if (lista.length) {
+      const antes = JSON.stringify(TORNEIOS);
+      TORNEIOS.length = 0; TORNEIOS.push(...lista);
+      _mudou = JSON.stringify(TORNEIOS) !== antes;
+      try { localStorage.setItem(_CACHE_KEY, JSON.stringify(lista)); } catch (e) {}
+    }
   } catch (e) { console.warn('Planilha indisponível; usando torneios-data.js.', e); }
 }
 // espera a planilha (no máximo 4 s) antes de mostrar os torneios
 const TORNEIOS_PRONTO = Promise.race([_carregarPlanilha(), new Promise(r => setTimeout(r, 4000))]);
-function aoCarregarTorneios(fn) { TORNEIOS_PRONTO.then(fn); }
+// roda já (com os dados locais ou da última visita) e roda de novo só se a planilha trouxer algo diferente
+function aoCarregarTorneios(fn) { fn(); TORNEIOS_PRONTO.then(() => { if (_mudou) fn(); }); }
 
 /* Cor própria de cada torneio (paleta "quadra"), igual no calendário e na página do torneio.
    Devolve { c: fundo, t: texto }. */

@@ -761,13 +761,13 @@ body.fx-3 .band,body.fx-3.fx-1 .band{background-image:none}
 body.fx-3 .ph-hero{background-image:radial-gradient(circle at 6% 0%,rgba(212,236,58,.2),transparent 38%),radial-gradient(circle at 96% 100%,rgba(47,114,141,.75),transparent 50%),radial-gradient(circle at 62% 0%,rgba(46,138,120,.4),transparent 42%);background-repeat:no-repeat;background-size:auto;background-position:0 0}
 
 /* ===== FUNDO: papel (textura sutil sobre bege liso) ===== */
-body.fx-2::after{opacity:1;mix-blend-mode:multiply}
+body.fx-2::after{opacity:.4}
 body.fx-3{background-color:#f1ecde}
 
 /* ===== TORNEIOS: calendário em vidro (um cartão por mês) ===== */
 .cal{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:20px;align-items:start;padding:clamp(16px,3vw,32px);border-radius:34px;position:relative;overflow:hidden;isolation:isolate;
   background:radial-gradient(circle at 8% 4%,rgba(212,236,58,.55),transparent 34%),radial-gradient(circle at 92% 96%,rgba(47,114,141,.95),transparent 50%),radial-gradient(circle at 70% 10%,rgba(46,138,120,.55),transparent 40%),linear-gradient(160deg,#0f2c37,#1e4b5e)}
-.mes{background:linear-gradient(160deg,rgba(255,255,255,.2),rgba(255,255,255,.07));border:1px solid rgba(255,255,255,.3);border-radius:28px;color:#fff;-webkit-backdrop-filter:blur(22px) saturate(1.3);backdrop-filter:blur(22px) saturate(1.3);box-shadow:0 20px 50px rgba(5,22,30,.35),inset 0 1px 0 rgba(255,255,255,.35);padding:22px 20px 16px}
+.mes{background:linear-gradient(160deg,rgba(255,255,255,.2),rgba(255,255,255,.07));border:1px solid rgba(255,255,255,.3);border-radius:28px;color:#fff;box-shadow:0 20px 50px rgba(5,22,30,.35),inset 0 1px 0 rgba(255,255,255,.35);padding:22px 20px 16px}
 .mes header{display:flex;align-items:baseline;gap:12px;padding:4px 6px 14px}
 .mes header h2{font-size:clamp(38px,5vw,56px);font-weight:600;line-height:1;text-transform:capitalize;color:#fff;letter-spacing:-.02em}
 .mes header span{font-family:var(--disp);font-size:clamp(22px,3vw,30px);font-weight:500;color:#fff;margin-left:0}
@@ -821,7 +821,7 @@ body.pg-torneios .news-sec .news{box-shadow:0 20px 50px rgba(5,22,30,.35)}
 /* Torneios: card do próximo torneio com o mesmo vidro/degradê dos calendários */
 body.pg-torneios .news-sec::before{display:none}
 body.pg-torneios .news-sec{padding-block:clamp(16px,3vw,32px)!important}
-body.pg-torneios .news{background:linear-gradient(160deg,rgba(255,255,255,.2),rgba(255,255,255,.07));border:1px solid rgba(255,255,255,.3);-webkit-backdrop-filter:blur(22px) saturate(1.3);backdrop-filter:blur(22px) saturate(1.3);box-shadow:0 20px 50px rgba(5,22,30,.35),inset 0 1px 0 rgba(255,255,255,.35)}
+body.pg-torneios .news{background:linear-gradient(160deg,rgba(255,255,255,.2),rgba(255,255,255,.07));border:1px solid rgba(255,255,255,.3);box-shadow:0 20px 50px rgba(5,22,30,.35),inset 0 1px 0 rgba(255,255,255,.35)}
 body.pg-torneios .news::before,body.pg-torneios .news::after{display:none}
 body.pg-torneios .news-body{background:none;border:0;box-shadow:none;-webkit-backdrop-filter:none;backdrop-filter:none;padding:0}
 body.pg-torneios .news-facts li{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.16)}
@@ -873,7 +873,7 @@ body.pg-torneios .tdet-main h2{color:var(--cream)}
 body.pg-torneios .bul{color:var(--cream)}
 body.pg-torneios .tags span{background:rgba(255,255,255,.08);color:var(--cream)}
 body.pg-torneios .tdet-main .photo{box-shadow:0 20px 50px rgba(5,22,30,.35)}
-body.pg-torneios .tdet .info-box{background:linear-gradient(160deg,rgba(255,255,255,.2),rgba(255,255,255,.07));border:1px solid rgba(255,255,255,.3);border-top:4px solid var(--c);-webkit-backdrop-filter:blur(22px) saturate(1.3);backdrop-filter:blur(22px) saturate(1.3);box-shadow:0 20px 50px rgba(5,22,30,.35),inset 0 1px 0 rgba(255,255,255,.35)}
+body.pg-torneios .tdet .info-box{background:linear-gradient(160deg,rgba(255,255,255,.2),rgba(255,255,255,.07));border:1px solid rgba(255,255,255,.3);border-top:4px solid var(--c);box-shadow:0 20px 50px rgba(5,22,30,.35),inset 0 1px 0 rgba(255,255,255,.35)}
 body.pg-torneios .duvida label{color:var(--cream)}
 
 /* Menu (desktop): último item da barra, abre o menu completo igual ao do celular */
@@ -928,13 +928,13 @@ body.pg-torneios .duvida label{color:var(--cream)}
 .btn.beam::before,.hd .btn::before,.hero .cta .btn.big::before,.ft .row>.btn::before{content:"";position:absolute;inset:-3px;padding:3px;border-radius:inherit;pointer-events:none;z-index:-1;
   background:conic-gradient(from var(--beam-ang),transparent 0%,transparent 45%,rgba(226,244,106,.7) 72%,#fff 92%,rgba(255,255,255,0) 100%);
   -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0);
-  filter:drop-shadow(0 0 8px rgba(226,244,106,.9));animation:beam-spin 2.6s linear infinite}
+  animation:beam-spin 2.6s linear infinite}
 .hd .btn::before{animation-duration:3.6s}
 .btn.beam:hover,.hd .btn:hover,.hero .cta .btn.big:hover,.ft .row>.btn:hover{background:radial-gradient(circle at 50% 0,rgba(255,255,255,.55),transparent 70%),var(--lime2)}
 @media(prefers-reduced-motion:reduce){.btn.beam::before,.hd .btn::before,.hero .cta .btn.big::before,.ft .row>.btn::before{animation:none;--beam-ang:210deg}}
 
 /* feixe no painel claro do menu: azul, para aparecer sobre o bege */
-.sm-info .btn.beam::before{background:conic-gradient(from var(--beam-ang),transparent 0%,transparent 45%,rgba(47,114,141,.55) 72%,var(--blue) 92%,rgba(47,114,141,0) 100%);filter:drop-shadow(0 0 6px rgba(47,114,141,.55))}
+.sm-info .btn.beam::before{background:conic-gradient(from var(--beam-ang),transparent 0%,transparent 45%,rgba(47,114,141,.55) 72%,var(--blue) 92%,rgba(47,114,141,0) 100%);}
 .sm-info .btn.beam:hover{background:radial-gradient(circle at 50% 0,rgba(255,255,255,.55),transparent 70%),var(--lime2)}
 
 /* ===== ESTRUTURA: resumo em 3 cartões iguais + galeria em grade uniforme ===== */
