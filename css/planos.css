@@ -1,0 +1,76 @@
+/* ===== Planos e preços =====
+   O que a pessoa escolhe é quantas vezes por semana: esse número é o herói do cartão.
+   Dois seletores com indicador deslizante (público e forma de pagamento); o preço recalcula e conta até o valor novo. */
+
+.pl{padding-top:clamp(36px,5vw,64px)}
+
+/* ---- seletores ---- */
+.pl-ctl{display:flex;flex-wrap:wrap;justify-content:center;gap:22px 40px}
+.pl-grp{display:flex;flex-direction:column;gap:8px;align-items:flex-start;max-width:100%}
+.pl-lbl{font-size:13px;font-weight:700;color:var(--muted);padding-left:6px}
+.seg{position:relative;display:inline-flex;gap:2px;padding:5px;border-radius:999px;max-width:100%;overflow-x:auto;scrollbar-width:none;
+  background:rgba(30,75,94,.08);box-shadow:inset 0 0 0 1px rgba(30,75,94,.14)}
+.seg::-webkit-scrollbar{display:none}
+.seg-ind{position:absolute;z-index:0;top:5px;bottom:5px;left:0;width:0;border-radius:999px;background:var(--teal);
+  transition:transform .5s cubic-bezier(.3,1.35,.5,1),width .5s cubic-bezier(.3,1.35,.5,1)}
+.seg.pay .seg-ind{background:var(--lime)}
+.seg button{position:relative;z-index:1;flex:none;height:42px;padding:0 18px;border:0;border-radius:999px;background:none;color:var(--ink);
+  font:700 14px var(--body);white-space:nowrap;cursor:pointer;display:inline-flex;align-items:center;gap:8px;transition:color .25s}
+.seg button[aria-checked=true]{color:var(--cream)}
+.seg.pay button[aria-checked=true]{color:var(--ink)}
+.seg button b{font-size:12px;font-weight:800;padding:2px 7px;border-radius:999px;background:rgba(18,52,65,.1);color:var(--ink)}
+.seg button:focus-visible{outline:3px solid var(--blue);outline-offset:1px}
+.pl-note{text-align:center;margin:18px 0 0;color:var(--muted);font-size:15px}
+
+/* ---- cartões ---- */
+.pl-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;max-width:1080px;margin:44px auto 0;align-items:stretch}
+.pl-card{position:relative;display:flex;flex-direction:column;gap:20px;padding:30px 28px 28px;border-radius:24px;background:#fff;color:var(--ink);
+  box-shadow:inset 0 0 0 1px var(--line)}
+.pl-card.dest{margin-block:-16px;padding-block:46px 40px;border-radius:32px;background-color:var(--deep);color:var(--cream);box-shadow:0 34px 64px -30px rgba(15,44,55,.7);
+  background-image:radial-gradient(circle at 100% 0,rgba(212,236,58,.16),transparent 46%),url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 360 780' fill='none' stroke='%23ffffff' stroke-opacity='.07' stroke-width='3'><rect x='2' y='2' width='356' height='776'/><path d='M45 2V778M315 2V778M45 195H315M45 585H315M180 195V585'/><path d='M0 390H360' stroke-width='5'/></svg>");
+  background-repeat:no-repeat;background-position:0 0,right -70px bottom -150px;background-size:auto,300px}
+.pl-flag{position:absolute;top:-1px;left:28px;transform:translateY(-50%);background:var(--lime);color:var(--ink);font-size:13px;font-weight:800;padding:7px 14px;border-radius:999px;white-space:nowrap}
+
+.pl-freq{display:flex;align-items:baseline;gap:12px;font-family:var(--disp)}
+.pl-freq b{font-size:clamp(78px,8vw,108px);line-height:.82;font-weight:700;letter-spacing:-.055em}
+.pl-freq b i{font-style:normal;font-size:.5em;letter-spacing:-.02em;color:var(--blue);margin-left:.05em}
+.dest .pl-freq b i{color:var(--lime)}
+.pl-freq span{font-family:var(--body);font-weight:700;font-size:16px;color:var(--muted)}
+.dest .pl-freq span{color:#c3d6db}
+
+.pl-preco{display:flex;align-items:baseline;gap:6px;font-family:var(--disp);font-weight:700}
+.pl-preco .pl-rs{font-size:22px;opacity:.7}
+.pl-preco .pl-val{font-size:clamp(46px,4.8vw,58px);line-height:1;letter-spacing:-.035em;font-variant-numeric:tabular-nums}
+.pl-preco .pl-mes{font-family:var(--body);font-weight:600;font-size:15px;opacity:.65}
+.pl-sub{margin:-6px 0 0;min-height:42px;font-size:14px;line-height:1.45;color:var(--muted)}
+.dest .pl-sub{color:#c3d6db}
+.pl-sub s{opacity:.75;margin-right:8px}
+.pl-sub em{font-style:normal;font-weight:800;font-size:12px;background:var(--lime);color:var(--ink);padding:2px 8px;border-radius:999px;margin-right:6px}
+
+.pl-lista{list-style:none;margin:0;padding:20px 0 0;border-top:1px solid var(--line);display:grid;gap:11px;font-size:15px;font-weight:600}
+.dest .pl-lista{border-top-color:rgba(244,241,232,.2)}
+.pl-lista li{position:relative;padding-left:30px}
+.pl-lista li::before{content:"";position:absolute;left:0;top:1px;width:20px;height:20px;border-radius:50%;background:var(--teal) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23d4ec3a' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'><path d='M6 12.5l4 4 8-9'/></svg>") center/12px no-repeat}
+.dest .pl-lista li::before{background-color:var(--lime);background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230f2c37' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'><path d='M6 12.5l4 4 8-9'/></svg>")}
+.pl-card .btn{margin-top:auto;width:100%}
+
+/* ---- rodapé da tabela ---- */
+.pl-familia{display:flex;align-items:center;gap:20px;max-width:1080px;margin:64px auto 0;padding:20px 28px;border-radius:22px;background:rgba(30,75,94,.07)}
+.pl-familia b{font-family:var(--disp);font-size:clamp(40px,5vw,54px);line-height:1;letter-spacing:-.03em;color:var(--blue)}
+.pl-familia p{margin:0;font-size:16px;color:var(--ink);max-width:48ch}
+.pl-reg{max-width:1080px;margin:18px auto 0;text-align:center;color:var(--muted);font-size:14px}
+
+/* ---- celular e tablet ---- */
+@media(max-width:900px){
+  .pl-grid{grid-template-columns:1fr;max-width:460px;gap:22px;margin-top:36px}
+  .pl-card.dest{margin-block:0;padding-block:40px 32px}
+  .pl-card{padding:28px 24px 26px}
+  .pl-flag{left:24px}
+  .pl-familia{max-width:460px;margin-top:40px;padding:18px 20px}
+  .pl-reg{max-width:460px}
+}
+@media(max-width:560px){
+  .pl-grp{width:100%}
+  .seg{width:100%;-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 30px),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - 30px),transparent)}
+}
+@media(prefers-reduced-motion:reduce){.seg-ind{transition:none}}
