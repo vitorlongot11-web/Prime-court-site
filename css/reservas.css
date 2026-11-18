@@ -2,3 +2,4 @@
 .rsv{display:flex;justify-content:center}
 .rsv-video{width:min(100%,400px);border-radius:28px;overflow:hidden;background:#05100f;box-shadow:0 24px 60px rgba(15,44,55,.28)}
 .rsv-video video{display:block;width:100%;height:auto;aspect-ratio:9/16;background:#05100f}
+.rsv-titulo{margin:0 auto 28px;max-width:640px}
