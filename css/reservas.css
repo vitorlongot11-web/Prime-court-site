@@ -2,4 +2,16 @@
 .rsv{display:flex;justify-content:center}
 .rsv-video{width:min(100%,400px);border-radius:28px;overflow:hidden;background:#05100f;box-shadow:0 24px 60px rgba(15,44,55,.28)}
 .rsv-video video{display:block;width:100%;height:auto;aspect-ratio:9/16;background:#05100f}
-.rsv-titulo{margin:0 auto 28px;max-width:640px}
+
+/* cabeçalho acima do vídeo */
+.rsv-head{display:flex;flex-direction:column;align-items:center;gap:20px;text-align:center;margin:0 auto clamp(22px,3vw,34px);max-width:820px}
+.rsv-play{position:relative;width:68px;height:68px;border-radius:50%;background:var(--lime);color:var(--ink);display:grid;place-items:center;box-shadow:0 14px 30px -12px rgba(18,52,65,.6)}
+.rsv-play svg{margin-left:3px}
+.rsv-play::before,.rsv-play::after{content:"";position:absolute;inset:0;border-radius:50%;border:2px solid var(--lime);opacity:0;animation:rsv-onda 2.6s ease-out infinite}
+.rsv-play::after{animation-delay:1.3s}
+@keyframes rsv-onda{0%{transform:scale(1);opacity:.7}100%{transform:scale(1.9);opacity:0}}
+.rsv-titulo{margin:0;font-size:clamp(30px,5vw,56px);line-height:1.08;letter-spacing:-.025em;color:var(--ink);text-wrap:balance}
+.rsv-titulo em{font-style:normal;color:var(--blue);padding:0 .1em;border-radius:6px;background:linear-gradient(transparent 64%,rgba(212,236,58,.8) 64%);-webkit-box-decoration-break:clone;box-decoration-break:clone}
+.rsv-seta{color:var(--blue);animation:rsv-seta 1.8s ease-in-out infinite}
+@keyframes rsv-seta{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+@media(prefers-reduced-motion:reduce){.rsv-play::before,.rsv-play::after,.rsv-seta{animation:none}}
