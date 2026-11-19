@@ -92,7 +92,7 @@
           <li>${horas} ${horas > 1 ? 'horas' : 'hora'} de quadra por semana</li>
           <li>Aula experimental grátis</li>
         </ul>
-        <a class="btn${i === meio ? '' : ' dark'}" href="${wa(WHATSAPP, msg)}" target="_blank" rel="noopener">Agendar aula experimental</a>
+        <a class="btn${i === meio ? '' : ' dark'}" href="${wa(WHATSAPP, msg)}" target="_blank" rel="noopener" data-agendar data-pub="${S.pub}" data-freq="${vezes}" data-modo="${modo.nome}">Agendar aula experimental</a>
       </article>`;
     }).join('');
     out.querySelectorAll('.pl-val').forEach((el, i) => {
